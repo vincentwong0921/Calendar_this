@@ -7,6 +7,25 @@
 </head>
 <body>
     <h1>Calendar working</h1>
+    <form method="post" action="">
+      {{ form.csrf_token() }}
+
+      <p>Name {{ form.name() }}</p>
+      <p>Start {{ form.start_date() }} , {{ form.start_time() }}</p>
+      <p>End {{ form.end_date() }} , {{ form.end_time() }}</p>
+
+      {% if form.end_date.errors %}
+      <ul class="errors">
+        {% for error in form.end_date.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+
+      <p>Description {{ form.description() }}</p>
+      <p>Private? {{ form.private() }}</p>
+      <p> {{ form.submit() }}</p>
+    </form>
     <table>
         <thead>
           <tr>
@@ -19,6 +38,13 @@
           <!-- loop here to create rows -->
           <!-- use strftime to format date objects -->
           <!-- loop here to create rows -->
+          {% for row in rows %}
+          <tr>
+            <td>{{ row[1]}}</td>
+            <td>{{ row[2]}}</td>
+            <td>{{ row[3]}}</td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
 </body>
